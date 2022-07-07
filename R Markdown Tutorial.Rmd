@@ -1,0 +1,59 @@
+---
+title: "R Markdown Tutorial"
+author: "Professor Tung"
+date: "2/9/2022"
+output: html_document
+---
+
+# Header 1 (Large)
+
+## Header 2 (Medium)
+
+### Header 3 (Small)
+
+As far as text editing goes, text can be in **bold** or *italics* or use superscript^2^ or text can use ~~strikethrough~~ text. End a line with two spaces to start a new paragraph  
+
+This is the new paragraph. It is also the 2nd paragraph. 
+
+We can also embed links. [link](www.metacritic.com)
+
+Equations can also be used. Inline equation: $A = \pi*r^{2}$
+
+Images can also be added into your R markdown file. ![](C:\Users\ttung\OneDrive\Desktop\Kio.jpg)  
+We can add lists of different types  
+
+* Unordered list
+* Recent video game systems purchased by Prof. Tung
+  + Japanese Red Wii
+  + White Wii U
+  
+1. Ordered List
+2. Ranking of Legend of Zelda Games by metacritic score
+  + Ocarina of Time
+  + Breath of the Wild
+  + Wind Waker 
+  
+R Code can always be included (R Markdown will execute the code and include the output!)
+
+```{r}
+#R Regression Estimator Example
+x <- c(1100, 2550, 1700, 3400, 7200, 5600, 3900, 4500, 1400)
+y <- c(1050, 1900, 1560, 2760, 6500, 5000, 3400, 4000, 1200)
+data <- data.frame(i = 1: length(y), y = y, x = x)
+data
+plot(data$x, data$y)
+abline(lm(y ~ x, data = data))
+regression1 <- lm(y ~ x, data = data)
+regression1
+
+```
+
+We can separate R code chunks with additional text! My main character in Smash Bros Ultimate is Lucina. 
+
+```{r}
+print("This is the 2nd R code chunk")
+print("Professor tung's favorite Legend of Zelda game is Link's Awakening")
+professor_tung_last_discgolf_scoring <- c(3, 5, 4, 3, 4, 4, 3, 4)
+professor_tung_last_discgolf_scoring
+
+```

@@ -1,0 +1,61 @@
+---
+title: "ECON 620 Problem Set 6"
+author: "Philip McCormick"
+date: "5/4/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+getwd()
+setwd("/Users/philipmccormick/Desktop/")
+```
+
+**1. i.** With the large coefficient *male* being 87.75 (measured in minutes), men sleep about an hour and half more than women per week. There is strong evidence at the 1% significance level.
+
+```{r}
+sleep <- read.csv('sleep75.csv')
+reg_1i <- lm(sleep ~ totwrk + Educ + Age + (Age)^2 + male, data=sleep)
+summary(reg_1i)
+```
+**1. ii.** With the coefficient totwork being negative (-.163) and significance level at 1%, an increase of one hour work is associated with a loss of 9.78 minutes of sleep.
+```{r}
+-.163*60
+```
+**1. iii.** In order to test the null hypothesis that age has no effect on sleep, we need test that the coefficients *age* and *age^2* are jointly zero. We run a restricted regression omitting these two variables and calculate the F-stat.
+
+**2.** The likely bias in OLS estimator of B~1~, where *train* is a binary variable or whether or not an employee recieved training, with be likely in violation of Assumption MLR 4 of Zero Conditional Mean. This will be violated because the error term has unobserved worker ability, and if an employee recieves training it willl likely increase their abilities alongside the error term.
+
+**3. a.**
+```{r}
+mlb <- read.csv('mlb1.csv')
+reg_3a <- lm(log(salary) ~ years + gamesyr + bavg + hrunsyr + rbisyr + runsyr + fldperc + allstar + frstbase + scndbase + thrdbase + shrtstop + catcher, data=mlb)
+summary(reg_3a)
+anova(reg_3a)
+```
+*log(salary) = 10.8 + 0.06 years + 0.015 gamesyr + 0.001 bavg +  0.017 hrunsyr + 0.005 rbisyr + 0.001 fldperc + 0.009 allstar -0.164 frstbase -0.195 scndbase -0.009 thrdbase -0.115 shrtstop + 0.148 catcher*
+
+According to the regression model, independent variables *years, gamesyr, bavg, hrunsyr, rbisyr, fldperc, allstar, and catcher* all have positive impacts on *log(salary)*, while *frstbase, scndbase, thrdbase, and shrtstop* have negative impacts on the dependent variable.
+
+**b.** 
+A catcher's salary is 25.4% higher than an outfielder. Since 1.93 > 1.645, at 10% signicance we reject the null hypothesis, but at 5% signifcance we fail to reject.
+
+**c.**
+```{r}
+library(car)
+MyH0 <- c("frstbase", "scndbase", "thrdbase", "shrtstop", "catcher")
+linearHypothesis(reg_3a, MyH0)
+
+n=353
+k=14
+n-k 
+```
+q=5, (n-k)=339, since 1.78 < 1.85, we fail to reject the null at a 10% significance level. This is interpreted as there being a difference in average salary across positions.
+
+**d.** The difference between a slope dummy and an intercept dummy is that intercept dummies change the mean value of Y~i~ based on a given quality, while slope dummies have a marginal effect of X on Y. This is interpreted graphically with intercept dummies moving the point of origin on the Y-axis upward or downward, while slope dummies flatten or steepen the degree of the line on the graph, keeping the intercept the same. Based on these definitions the variables looked at above were intercept dummies.
+
+**4. Final Project Update**
+As my project stands now I will be using two data sets, one for my theoretical project and one to run regressions and tests on. I had difficulty finding a data set with useful data on the topic of desalination plants and their benefits to regions they are operating in. Due to the construction costs and efficiency of these sites, those companies that install them do not like to give out information so the closest I could find to data on these sites was location based, and only gave categorical and qualitative data. 
+
+Since we can not run regression on categorical variables I will be relying on the data set related to vicinity to a processing plant "kielmc" to run theoretical regressions and tests. Upon analysis of the data only minor cleaning and processing needs to be done prior to testing. As of now I have run regressions and t-tests on some of the data.
+
+Moving forward the support I will need is expectations of final project analysis and comprehension.
